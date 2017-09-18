@@ -16,8 +16,8 @@ import MySQLdb.cursors
 class NewdongguanPipeline(object):
     def __init__(self,dbpool):
         # 创建一个文件
-        # self.filename = codecs.open("donggguan.json", "w", encoding = "utf-8")
-        self.dbpool = dbpool
+        self.filename = codecs.open("Recommend.json", "w", encoding = "utf-8")
+        # self.dbpool = dbpool
 
     @classmethod
     def from_settings(cls, settings):
@@ -39,13 +39,13 @@ class NewdongguanPipeline(object):
 
     def process_item(self, item, spider):
         # 中文默认使用ascii码来存储，禁用后默认为Unicode字符串
-        # content = json.dumps(dict(item), ensure_ascii=False) + "\n"
-        # self.filename.write(content)
+        content = json.dumps(dict(item), ensure_ascii=False) + "\n"
+        self.filename.write(content)
         # self.cursor.execute("select count(*) from douban")
         # self.cursor.execute("INSERT INTO `jyy`.`lottery_info` (`url`, `num`, `title`, `content`) VALUES (%s,%s,%s,%s);",(item["url"],item["number"],item["title"],item["content"]))
-        query = self.dbpool.runInteraction(self._conditional_insert, item)  # 调用插入的方法
-
-        query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
+        # query = self.dbpool.runInteraction(self._conditional_insert, item)  # 调用插入的方法
+        #
+        # query.addErrback(self._handle_error, item, spider)  # 调用异常处理方法
         return item
 
 
@@ -54,8 +54,8 @@ class NewdongguanPipeline(object):
         # sql = "insert into lottery_info(name,url) values(%s,%s)"
         try:
             # sql = "insert into lottery_info(url,num,title,content) values(%s,%s,%s,%s)"
-            sql = "INSERT INTO `jyy`.`lottery_info` (`url`, `num`, `title`, `content`) VALUES (%s,%s,%s,%s);"
-            params = (item["url"], item["number"],item["title"],item["content"])
+            sql = "INSERT INTO `jyy`.`lottery_skill` (`url`, `title`, `time`, `content`) VALUES (%s,%s,%s,%s);"
+            params = (item["url"], item["title"],item["time"],item["content"])
             # tx.execute("INSERT INTO `jyy`.`lottery_info` (`url`, `num`, `title`, `content`) VALUES (%s,%s,%s,%s);",(item["url"],item["number"],item["title"],item["content"]))
             # tx.execute("insert into lottery_info(url,num,title,content) values('10','10','10','10')")
             tx.execute(sql,params)

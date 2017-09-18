@@ -13,7 +13,7 @@ class NewdongguanItem(scrapy.Item):
     # 标题
     title = scrapy.Field()
     # 编号
-    number = scrapy.Field()
+    time = scrapy.Field()
     # 内容
     content = scrapy.Field()
     # 链接
