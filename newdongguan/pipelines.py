@@ -17,7 +17,7 @@ class NewdongguanPipeline(object):
     def __init__(self,dbpool):
         # 创建一个文件
         self.filename = codecs.open("Recommend.json", "w", encoding = "utf-8")
-        # self.dbpool = dbpool
+        self.dbpool = dbpool
 
     @classmethod
     def from_settings(cls, settings):
@@ -54,7 +54,7 @@ class NewdongguanPipeline(object):
         # sql = "insert into lottery_info(name,url) values(%s,%s)"
         try:
             # sql = "insert into lottery_info(url,num,title,content) values(%s,%s,%s,%s)"
-            sql = "INSERT INTO `jyy`.`lottery_skill` (`url`, `title`, `time`, `content`) VALUES (%s,%s,%s,%s);"
+            sql = "INSERT INTO `jyy`.`lottery_zhuanjia` (`url`, `title`, `time`, `content`) VALUES (%s,%s,%s,%s);"
             params = (item["url"], item["title"],item["time"],item["content"])
             # tx.execute("INSERT INTO `jyy`.`lottery_info` (`url`, `num`, `title`, `content`) VALUES (%s,%s,%s,%s);",(item["url"],item["number"],item["title"],item["content"]))
             # tx.execute("insert into lottery_info(url,num,title,content) values('10','10','10','10')")
@@ -67,5 +67,5 @@ class NewdongguanPipeline(object):
     def _handle_error(self, failue, item, spider):
         print failue
 
-    # def close_spider(self, spider):
-    #     self.filename.close()
+    def close_spider(self, spider):
+        self.filename.close()

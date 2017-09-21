@@ -17,6 +17,15 @@ COOKIES_ENABLED = False
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'newdongguan (+http://www.yourdomain.com)'
+DEFAULT_REQUEST_HEADERS = {
+    'accept': 'image/webp,*/*;q=0.8',
+    'accept-language': 'zh-CN,zh;q=0.8',
+    'referer': 'http://www.gdtai.com/info/info/',
+    'user-agent': 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)',
+    'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    'Accept-Encoding':	'gzip, deflate',
+    'Cookie':'Hm_lvt_a7c208b1d88d264468dc5a1c4ea808e6=1505654114,1505690668,1505964849; Hm_lpvt_a7c208b1d88d264468dc5a1c4ea808e6=1505978610'
+}
 
 USER_AGENTS = [
     'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)',
@@ -29,7 +38,7 @@ USER_AGENTS = [
 ]
 
 PROXIES = [
-        {"ip_port" :"121.42.140.113:16816", "user_passwd" : "mr_mao_hacker:sffqry9r"},
+        {"ip_port" :"1110.172.220.194：8080", "user_passwd" : ""},
         #{"ip_prot" :"121.42.140.113:16816", "user_passwd" : ""}
         #{"ip_prot" :"121.42.140.113:16816", "user_passwd" : ""}
         #{"ip_prot" :"121.42.140.113:16816", "user_passwd" : ""}
@@ -70,9 +79,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'newdongguan.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'newdongguan.middlewares.RandomUserAgent': 100,
+   # 'newdongguan.middlewares.RandomProxy': 200,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -82,9 +92,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'newdongguan.pipelines.NewdongguanPipeline': 300,
-}
+# ITEM_PIPELINES = {
+#     'newdongguan.pipelines.NewdongguanPipeline': 300,
+# }
 MYSQL_HOST = '59aeb05f83aa4.gz.cdb.myqcloud.com'
 MYSQL_DBNAME = 'jyy'         #数据库名字，请修改
 MYSQL_USER = 'jyy'             #数据库账号，请修改
